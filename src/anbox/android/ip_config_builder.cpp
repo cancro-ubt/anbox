@@ -17,7 +17,7 @@
 
 #include "anbox/android/ip_config_builder.h"
 
-#include <boost/endian/buffers.hpp>
+//#include <boost/endian/buffers.hpp>
 
 #include <ostream>
 #include <sstream>

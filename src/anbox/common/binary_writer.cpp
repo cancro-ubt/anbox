@@ -21,7 +21,7 @@
 #include <cstring>
 #include <stdexcept>
 
-#include <boost/endian/buffers.hpp>
+//#include <boost/endian/buffers.hpp>
 
 namespace {
 bool is_little_endian() {
@@ -49,10 +49,10 @@ void BinaryWriter::write_uint16(std::uint16_t value) {
   std::uint16_t v = value;
   switch (byte_order_) {
   case Order::Big:
-    v = boost::endian::native_to_big(value);
+    //v = boost::endian::native_to_big(value);
     break;
   case Order::Little:
-    v = boost::endian::native_to_little(value);
+    //v = boost::endian::native_to_little(value);
     break;
   default:
     break;
@@ -69,10 +69,10 @@ void BinaryWriter::write_uint32(std::uint32_t value) {
   std::uint32_t v = value;
   switch (byte_order_) {
   case Order::Big:
-    v = boost::endian::native_to_big(value);
+    //v = boost::endian::native_to_big(value);
     break;
   case Order::Little:
-    v = boost::endian::native_to_little(value);
+    //v = boost::endian::native_to_little(value);
     break;
   default:
     break;

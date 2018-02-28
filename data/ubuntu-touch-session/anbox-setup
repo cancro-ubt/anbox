@@ -26,29 +26,29 @@ BINDER64="64binder.img"
 
 ANBOX_DATA="/home/phablet/anbox-data"
 
-DEVICE=$(getprop ro.product.device)
-SUPPORTED="false"
-for i in $SUPPORTED_DEVICES; do
-  if [ $i == $DEVICE ]; then
-    SUPPORTED="true"
-  fi
-done
+#DEVICE=$(getprop ro.product.device)
+#SUPPORTED="false"
+#for i in $SUPPORTED_DEVICES; do
+#  if [ $i == $DEVICE ]; then
+#    SUPPORTED="true"
+#  fi
+#done
 
-if [ $SUPPORTED == "false" ]; then
-  echo "$DEVICE is not supported (yet)"
-  exit 1
-fi
+#if [ $SUPPORTED == "false" ]; then
+#  echo "$DEVICE is not supported (yet)"
+#  exit 1
+#fi
 
 # We still don't have 64bit
 # USE_ARM64="turbo cooler frieza"
 #
 # TODO check for binder version
 URL="$BASE_URL/$IMAGE_ARMHF-$BINDER32"
-for i in $USE_BINDER64; do
-  if [ $i == $DEVICE ]; then
-    URL="$BASE_URL/$IMAGE_ARMHF-$BINDER64"
-  fi
-done
+#for i in $USE_BINDER64; do
+#  if [ $i == $DEVICE ]; then
+#    URL="$BASE_URL/$IMAGE_ARMHF-$BINDER64"
+#  fi
+#done
 
 mkdir $ANBOX_DATA || true
 if [ -f "$ANBOX_DATA/.enable" ]; then

@@ -40,6 +40,20 @@ LauncherStorage::~LauncherStorage() {}
 
 void LauncherStorage::reset() {
   if (fs::exists(path_)) {
+
+/* ** 15.04 */
+    fs::directory_iterator end_iter;
+
+    for(fs::directory_iterator iter(path_);iter!=end_iter;iter++) {
+        if (fs::is_regular_file(*iter)){
+          auto str = iter->path().filename().string();
+          if (boost::starts_with(str, "anbox-"))
+            fs::remove(*iter);
+        }
+     }
+/* */
+
+/* ** 16.04
     for(auto & p : boost::filesystem::directory_iterator(path_)) {
         if (fs::is_regular_file(p)){
           auto str = p.path().filename().string();
@@ -47,6 +61,7 @@ void LauncherStorage::reset() {
             fs::remove(p);
         }
      }
+*/
    }
 }
 
@@ -92,7 +107,8 @@ void LauncherStorage::add_or_update(const Database::Item &item) {
     exec += utils::string_format("--component=%s ", item.launch_intent.component);
 
   const auto item_icon_path = path_for_item_icon(package_name);
-  if (auto desktop_item = std::ofstream(path_for_item(package_name).string())) {
+  ofstream desktop_item(path_for_item(package_name).string());
+  //if (auto desktop_item = std::ofstream(path_for_item(package_name).string())) {
     desktop_item << "[Desktop Entry]" << std::endl
                  << "Name=" << item.name << std::endl
                  << "Exec=" << exec << std::endl
@@ -100,14 +116,14 @@ void LauncherStorage::add_or_update(const Database::Item &item) {
                  << "Type=Application" << std::endl
                  << "Icon=" << item_icon_path.string() << std::endl
                  << "X-Ubuntu-Touch=true" << std::endl;
-  } else {
-    BOOST_THROW_EXCEPTION(std::runtime_error("Failed to create desktop item"));
-  }
-
-  if (auto icon = std::ofstream(item_icon_path.string()))
+  //} else {
+  //  BOOST_THROW_EXCEPTION(std::runtime_error("Failed to create desktop item"));
+  //}
+  ofstream icon(item_icon_path.string());
+  //if (auto icon = std::ofstream(item_icon_path.string()))
     icon.write(item.icon.data(), item.icon.size());
-  else
-    BOOST_THROW_EXCEPTION(std::runtime_error("Failed to write icon"));
+  //else
+  //  BOOST_THROW_EXCEPTION(std::runtime_error("Failed to write icon"));
 }
 
 void LauncherStorage::remove(const Database::Item &item) {
