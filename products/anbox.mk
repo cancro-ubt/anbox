@@ -61,6 +61,7 @@ PRODUCT_COPY_FILES += \
 	vendor/anbox/products/anbox.xml:system/etc/permissions/anbox.xml
 
 PRODUCT_PACKAGES += \
+	LatinIME \
 	anboxd \
 	hwcomposer.anbox \
 	AnboxAppMgr
